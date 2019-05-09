@@ -1,0 +1,52 @@
+{
+  "name": "starwars-api-jenkins",
+  "version": "1.0.0",
+  "description": "intégration de starwars-api dans un piepline jenkins",
+  "main": "index.js",
+  "scripts": {
+    "start": "node server/lib",
+    "build": "babel server/src --out-dir server/lib",
+    "createDB": "babel-node db.js",
+    "test": "jest",
+    "test-coverage": "jest --coverage"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benoitDD/starwars-api-jenkins.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benoitDD/starwars-api-jenkins/issues"
+  },
+  "homepage": "https://github.com/benoitDD/starwars-api-jenkins#readme",
+  "dependencies": {
+    "@babel/polyfill": "7.4.4",
+    "apollo-datasource-graphql": "1.3.2",
+    "apollo-server": "2.5.0",
+    "apollo-server-express": "2.5.0",
+    "bcrypt": "3.0.6",
+    "core-js": "3.0.1",
+    "cors": "2.8.5",
+    "dotenv": "8.0.0",
+    "express": "4.16.4",
+    "graphql": "14.3.0",
+    "i18next": "15.1.0",
+    "i18next-express-middleware": "1.8.0",
+    "i18next-node-fs-backend": "2.1.3",
+    "jsonwebtoken": "8.5.1",
+    "mime-types": "2.1.24",
+    "mongodb": "3.2.4",
+    "mongoose": "5.5.6",
+    "string-similarity": "3.0.0",
+    "unique-filename": "1.1.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.4.4",
+    "@babel/core": "7.4.4",
+    "@babel/node": "7.2.2",
+    "@babel/preset-env": "7.4.4",
+    "jest": "24.8.0"
+  }
+}
