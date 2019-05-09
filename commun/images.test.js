@@ -6,7 +6,7 @@ test('Mimetype accept', () => {
     expect(Array.isArray(resPng)).toBeTruthy()
     expect(Array.isArray(resMpeg)).toBeTruthy()
 
-    expect(resPng.length).toBe(20)
+    expect(resPng.length).toBe(2)
     expect(resMpeg.length).toBe(2)
 
     expect(resPng[0]).toBeTruthy()
