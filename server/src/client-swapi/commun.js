@@ -26,7 +26,7 @@ class Commun extends GraphQLDataSource {
 
     constructor(props){
         super(props)
-        this.baseURL = 'http://localhost:8080'
+        this.baseURL = process.env.SWAPI_URL
     }
    
     getAllObject(pageSize = 10, after, before, query) {

@@ -1,0 +1,51 @@
+pipeline {
+    agent {
+        docker {
+            image 'node:latest'
+            args '-p 9191:4000'
+        }
+    }
+    environment {
+        STARWARS_DB_CREDS = credentials('DB_STARWARS_CREDENTIAL')
+        PRIVATE_KEY_TOKEN = credentials('STARWARS_PRIVATE_KEY_TOKEN')
+        DB_LOGIN = "$STARWARS_DB_CREDS_USR"
+        DB_PASSWORD = "$STARWARS_DB_CREDS_PSW"
+        PORT=4000
+        NODE_ENV='development'
+        DIRECTORY_IMAGE='server/public/images/'
+        DIRECTORY_IMAGE_EXT='/images/'
+        DIRECTORY_LOCALES_I18N='/public/locales/{{lng}}/{{ns}}.json'
+        CORS_ORIGIN='http://192.168.1.69:5000'
+        SWAPI_URL='http://192.168.1.69:8080'
+    } 
+    stages {
+        stage('Install') {
+            steps {
+                sh 'npm install'
+            }
+        }stage('Build') {
+            steps {
+                sh 'npm run build'
+            }
+        }
+        stage('Test') {
+            steps {
+                script {
+                    try{
+                        sh 'npm test'
+                    }catch(Exception e){
+                        input message: 'Test is in failure, continue ? (Click "Proceed" to continue)'
+                        currentBuild.result = 'UNSTABLE'
+                    }
+                }
+            }
+        }
+        stage('Deliver') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Finished using the web site? (Click "Proceed" to continue)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
+    }
+}
