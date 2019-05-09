@@ -35,12 +35,14 @@ pipeline {
                     try{
                         sh 'npm test'
                     }catch(Exception e){
-                        def skipTest = input message: 'Test is in failure, continue ?', ok: 'Yes'
-                        if(skipTest){
+                        def skipTestFailure = input(message: 'Test in failure, continue ?', 
+                            parameters: [booleanParam(defaultValue: true, 
+                            description: 'Skip the test',name: 'Yes?')])
+                        if(skipTestFailure){
                             currentBuild.result = 'UNSTABLE'
-                        }else{
+                        } else{
                             currentBuild.result = 'FAILURE'
-                            error(e.message)
+                            error('Test in failure')
                         }
                     }
                 }
