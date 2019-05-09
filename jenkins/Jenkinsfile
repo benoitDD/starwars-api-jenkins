@@ -40,7 +40,7 @@ pipeline {
                             currentBuild.result = 'UNSTABLE'
                         }else{
                             currentBuild.result = 'FAILURE'
-                            error(e)
+                            error(e.message)
                         }
                     }
                 }
